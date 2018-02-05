@@ -126,21 +126,8 @@
   tags:
     - zookeeper_config
 
-- name: Template ZooKeeper systemd service file
-  template:
-    src: zookeeper.service.j2
-    dest: /usr/lib/systemd/system/zookeeper.service
-  notify:
-    - Reload systemd
-    - Restart ZooKeeper service
-  tags:
-    - zookeeper_service
-
 - name: Start the ZooKeeper service
-  service:
-    name: zookeeper.service
-    state: started
-    enabled: yes
+  command: '{{ zookeeper_dir }}/bin/zkServer.sh start'
   tags:
     - zookeeper_service
 
